@@ -1,0 +1,292 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+.bg {
+    background-image: url("../images/background2.jpg");
+    height: cover;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+} /** made bg image to cover the entire width of the screen **/
+
+h1, h5, p {
+    margin: 5px;
+    font-family: 'Courgette', cursive;
+}
+
+h1 {
+    margin-right: 15px;
+}
+
+.carousel-caption h3 {
+    font-family: 'Courgette', cursive;
+    
+}
+
+.navbar {
+    font-family: 'Courgette', cursive;
+    border: 1px;
+    border-color: lightgrey;
+    border-style: solid;
+    opacity: 0.7;
+    z-index: 2;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+}
+
+#carouselExampleIndicators {
+    display: left;
+    z-index: 1;
+    margin-top: 6%;
+    cursor: pointer;
+}
+
+.carousel-inner {
+    border-radius: 2%;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);   
+}
+
+.card {
+    display: auto;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 5%;
+}
+
+.card-title {
+    font-family: 'Courgette', cursive;
+    text-shadow: 0 0 3px rgb(121, 233, 88);
+
+}
+
+#link-button {
+    font-family: 'Courgette', cursive;
+
+}
+
+#random-recipes {
+    background-color: whitesmoke; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3%;
+    font-family: 'Courgette', cursive;
+    border: 1px;
+    border-color: lightgrey;
+    border-style: solid;
+    padding: 10px;
+    border-radius: 2%;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+    /* opacity: 0.7; */
+}
+/* erase this part *****************/
+/* .img-fluid {
+    border: 1px;
+    border-style: solid;
+    border-color:green black;
+}
+
+#search-result td {
+    text-align: center;
+    
+      
+} */
+/***********************************/
+
+#row1, #row2, #row3 {
+margin-top: 30px;
+}
+
+#click-button {
+    display: block;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+#nav-button {
+    display: block;
+    /* align-content: center; */
+    /* margin-left: auto;
+    margin-right: auto; */
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.footer {
+    background-color: whitesmoke;
+    text-align: center;
+    padding: 0;
+    border: 1px; 
+    border-color: lightgrey;
+    border-style: solid;
+    opacity: 0.7;
+
+}
+
+/*****************  ERASE THIS TOO! lines by Jai *******************/
+/*.table-search {
+   /* text-align: center;
+    background-color: white;
+    /*opacity: 0.65;
+    font-family: 'Courgette', cursive;
+    border-radius: 2%;
+
+}**/
+/* .table-search {
+    text-align: center;
+    background-color: white;
+    opacity: 0.65;
+    font-family: 'Courgette', cursive;
+    padding: 10%;
+    margin: auto;
+    border-radius: 2%;
+    
+} **********************************************************************/
+
+.carousel-inner h3 {
+    background-color: none;
+    color: white black;
+    text-shadow: 0 0 3px rgb(0, 0, 0);
+    opacity: none;
+    
+
+}
+/***************** lines by Jai *******************/
+
+
+
+#search-result1 {
+    margin-top: 5%;
+    
+}
+
+#search-result2 {
+    margin-top: 5%;
+    padding-left: auto;
+    padding-right: auto;
+    text-align: center;
+    margin: auto;
+} 
+
+
+#search-result3 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    margin: auto;
+}
+
+#search-result4 {
+    text-align: left;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    color: whitesmoke;
+
+}
+
+#urllink  {
+    color: darkgreen;
+    text-shadow: 2px 2px rgb(91, 224, 91);
+
+
+}
+
+#single-recipe-ingredients {
+    text-align: center;
+    font-size: 20px;
+}
+/***************** lines by Jai *******************/
+
+
+
+
+#single-recipe-name {
+    font-size: 35px;
+    text-shadow: 2px 2px rgb(91, 224, 91);
+    font-style: bold;
+}
+
+#single-recipe-image {
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 10px 24px 0 rgba(0, 0, 0, 0.19);
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+
+} 
+
+#single-recipe-category {
+    margin-top: 40px;
+}
+
+#single-recipe-result {
+    /* box-shadow: 0 0 12px 12px rgba(0, 0, 0, 0.2); */
+    background-color: whitesmoke;
+    /* opacity: 0.65; */
+    font-family: 'Courgette', cursive;
+    padding: 10%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 1%;
+    border-radius: 2%;
+    border: 1px; 
+    border-color: lightgrey;
+    border-style: solid;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+/* Jai 0210*/
+#random-video {
+    /* width: 40%; */
+    background-color: whitesmoke;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 1px; 
+    border-color: lightgrey;
+    border-style: solid;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+}
+
+#result-list {
+    font-family: 'Courgette', cursive;
+    background-color: whitesmoke;
+    /* padding-left: auto;
+    padding-right: auto; */
+    border-radius: 2%;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    
+       
+}
+
+.table {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 1%;   
+}
+
+#recipe-items img {
+    cursor: pointer;
+}
+
+
+/* Jai 0210*/
+
+/* @media screen and (max-width: 767px) {
+    .carousel-caption h3 {
+        font-size: 5px;
+    }
+} */
+
+
+
+
