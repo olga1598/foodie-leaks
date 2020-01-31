@@ -102,13 +102,16 @@ var createRow = function(response) {
         
         var tRow = $("<tr>");
         var recipeTitle = $("<td>").text(response.matches[i].recipeName);
-        var image = $("<img>").attr("src", response.matches[i].smallImageUrls);
+        recipeTitle.attr("class", "single-title");
+        var img = hdImgURL(response.matches[i].smallImageUrls[0]);
+        var image = $("<img>").attr("src", img);
+        image.attr("class", "single-img");
         var imageTD = $("<td>").append(image);
         var recipeID = response.matches[i].id;
         tRow.addClass("searchResult");
         tRow.attr("IDdata", recipeID);
         var ratingText = $("<td>").text("rating: " + response.matches[i].rating);
-        tRow.append(recipeTitle, ratingText, imageTD);
+        tRow.append(recipeTitle, imageTD);
 
         $("#insert-row").append(tRow);
     }

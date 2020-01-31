@@ -11,6 +11,26 @@ body, html{
     background-attachment: fixed;
 } /** made bg image to cover the entire width of the screen **/
 
+.dropdown-item{
+    cursor: pointer;
+}
+
+.single-img{
+    width: 400px;
+    box-shadow: 3px 3px darkgray;
+}
+
+.table td{
+    vertical-align: middle !important;
+}
+
+.single-title{
+    text-shadow: 3px 3px darkgray;
+    font-size: 20px;
+}
+
+
+
 h1, h5, p {
     margin: 5px;
     font-family: 'Courgette', cursive;
