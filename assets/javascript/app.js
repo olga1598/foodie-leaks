@@ -51,6 +51,7 @@ function displayRecipe() {
     $("#random-video").show();
     if (navBtnFlag === true) {
         $("#nav-button").show();
+        //$("#add-button").show();
     }
 };
 
@@ -247,7 +248,7 @@ var createRowGetAPI = function(response) {
     // $("#search-result").append(image, recipeName, category, cookTime,  rating, serving, ingredients, source);
     $("#search-result1").append(image);
     $("#search-result2").append(recipeName, category, cookTime, rating, serving);
-    $("#search-result3").append("Ingredients: ", ingredients);
+    $("#search-result3").append("Ingredients: ", "<hr />", ingredients);
 
     // console.log(cookTime);
     // console.log(recipeName);

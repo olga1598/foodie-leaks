@@ -131,11 +131,25 @@ margin-top: 30px;
 #nav-button {
     display: block;
     /* align-content: center; */
-    /* margin-left: auto;
-    margin-right: auto; */
+    /*margin-right: auto; */
     opacity: 0.7;
     cursor: pointer;
 }
+
+#add-button {
+    display: block;
+    /* align-content: center;
+    margin-left: auto;*/
+    float: right;
+    opacity: 0.7;
+    cursor: pointer;
+  
+}
+
+.recipe-content{
+    margin-top: 30px;
+}
+
 
 .footer {
     background-color: whitesmoke;
@@ -199,8 +213,10 @@ margin-top: 30px;
     margin-bottom: 40px;
     padding-top: 5%;
     padding-bottom: 5%;
-    text-align: center;
-    margin: auto;
+    /* text-align: center; */
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 #search-result4 {
