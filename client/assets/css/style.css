@@ -2,6 +2,7 @@ body, html{
     height: 100%;
     margin: 0;
 }
+
 .bg {
     background-image: url("../images/background2.jpg");
     height: cover;
@@ -15,6 +16,7 @@ body, html{
     cursor: pointer;
 }
 
+
 .single-img{
     width: 400px;
     box-shadow: 3px 3px darkgray;
@@ -25,11 +27,71 @@ body, html{
 }
 
 .single-title{
-    text-shadow: 3px 3px darkgray;
+    /* text-shadow: 3px 3px darkgray; */
     font-size: 20px;
+    text-align: center;
+    font-family: 'Courgette', cursive;
+    margin: 0;
+}
+
+.grid-item-content button{
+    font-family: 'Courgette', cursive;
+
+}
+
+.save:hover{
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.card-img-top{
+    margin: 10px 0px;
+}
+
+.singlerecipecontainer {
+    /* YOUR CODE HERE */
+    max-width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
+.grid-row {
+    /* YOUR CODE HERE */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    /* padding: 0px;
+    flex-direction: row;
+    flex-wrap: wrap; */
+}
+
+.grid-item{
+    flex-basis: 18%;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 20px 8px 20px 8px;
+    /* didnt hjave it */
+    /* height: 550px; */
+    background-color: white;
+    /* opacity: 0.8; */
+}
+
+.grid-item-content{
+    border: 1px solid #eee;
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
 
 h1, h5, p {
     margin: 5px;
@@ -323,6 +385,36 @@ margin-top: 30px;
     }
 } */
 
+@media(max-width: 1200px) {
+    .grid-item {
+        /* YOUR CODE HERE */
+        flex-basis: 33.33%;
+    }
+}
+
+@media(max-width: 992px) {
+    .grid-item {
+        /* YOUR CODE HERE */
+        flex-basis: 33.33%;
+
+    }
+}
+
+@media(max-width: 768px) {
+    .grid-item {
+        /* YOUR CODE HERE */
+        flex-basis: 50%;
+
+    }
+}
+
+@media(max-width: 576px) {
+    .grid-item {
+        /* YOUR CODE HERE */
+        flex-basis: 100%;
+
+    }
+}
 
 
 

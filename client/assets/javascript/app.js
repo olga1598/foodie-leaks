@@ -1,4 +1,30 @@
 console.log("Javascript Line 1");
+var config = {
+    apiKey: "AIzaSyAsYGw9ecnysqC2I7ivZsIa8Ocal1HxnDc",
+    authDomain: "save-recipe-4434b.firebaseapp.com",
+    databaseURL: "https://save-recipe-4434b.firebaseio.com",
+    projectId: "save-recipe-4434b",
+    storageBucket: "save-recipe-4434b.appspot.com",
+    messagingSenderId: "109919023336",
+    appId: "1:109919023336:web:84da9aba7b99ff75e4d95d",
+    measurementId: "G-F9S3TV6KDT"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(config);
+
+  // Create a variable to reference the database.
+    var database = firebase.database();
+
+    var title = "";
+    var image = "";
+    var category = "";
+    var time = "";
+    var rating = "";
+    var servings = "";
+    var ingredients = [];
+    var link = "";
+
 var navBtnFlag = false;
 // function to show and hide contents at HOME/reload
 function displayHome() {
@@ -20,6 +46,7 @@ function displayList() {
     $("#random-recipes").show();
 
     $("#result-list").show();
+    $(".grid-row").show();
 
     // contents to hide
     $("#carouselExampleIndicators").hide();
@@ -45,6 +72,7 @@ function displayRecipe() {
     $("#random-recipes").hide();
     $("#result-list").hide();
     $("#carouselExampleIndicators").hide();
+    $(".grid-row").hide();
 
     // recipe contents show
     $("#single-recipe-result").show();
@@ -100,27 +128,74 @@ var createRow = function(response) {
     displayList();
     // create a new table row element
     for (var i = 0; i < 10; i++) {
-        
-        var tRow = $("<tr>");
-        var recipeTitle = $("<td>").text(response.matches[i].recipeName);
-        recipeTitle.attr("class", "single-title");
+        var recdiv = $("<div>");
+        recdiv.addClass("grid-item");
+        var griditem = $("<div>").addClass("grid-item-content");
         var img = hdImgURL(response.matches[i].smallImageUrls[0]);
-        var image = $("<img>").attr("src", img);
-        image.attr("class", "single-img");
-        var imageTD = $("<td>").append(image);
-        var recipeID = response.matches[i].id;
-        tRow.addClass("searchResult");
-        tRow.attr("IDdata", recipeID);
-        var ratingText = $("<td>").text("rating: " + response.matches[i].rating);
-        tRow.append(recipeTitle, imageTD);
+        var recimage = $("<img>").attr("src", img);
+        recimage.attr("class", "card-img-top");
+        recimage.attr("alt", "Card image cap");
+        var cardbody = $("<div>").addClass("card-body");
+        var cardtitle = $("<h1>").addClass("single-title").text(response.matches[i].recipeName);
+        var savebutton = $("<button>").text("save").attr("IDdata", response.matches[i].id).attr("class", "save");
+        var showbutton = $("<button>").text("show more").attr("IDdata", response.matches[i].id).attr("class", "show");
+        griditem.append(cardtitle, recimage, savebutton, showbutton);
+        recdiv.append(griditem);
+        $(".grid-row").append(recdiv);
+//         var tRow = $("<tr>");
+//         var recipeTitle = $("<td>").text(response.matches[i].recipeName);
+//         recipeTitle.attr("class", "single-title");
+//         var img = hdImgURL(response.matches[i].smallImageUrls[0]);
+//         var image = $("<img>").attr("src", img);
+//         image.attr("class", "single-img");
+//         var imageTD = $("<td>").append(image);
+//         var recipeID = response.matches[i].id;
+//         tRow.addClass("searchResult");
+//         tRow.attr("IDdata", recipeID);
+//         var ratingText = $("<td>").text("rating: " + response.matches[i].rating);
+//         tRow.append(recipeTitle, imageTD);
+//         var tRowButton = $("<tr>");
+// var button = $("<button>").text("save").attr("id", response.matches[i].id).attr("class", "save");
+// tRowButton.attr("class", "save-button");
+// tRowButton.attr("IDdata", recipeID);
+// tRowButton.append(button);
 
-        $("#insert-row").append(tRow);
+//         $("#insert-row").append(tRow, tRowButton);
+
     }
     navBtnFlag = true;
     
 };
+
+$("#result-list").on("click", ".save-button", function(event){
+    // prevent page from refreshing
+    event.preventDefault();
+    var recipeID = $(this).attr("IDdata");
+    console.log(recipeID + "from click event");
+    // API credentials
+    var appID = "c264894e";
+    var apiKey = "f5984f792fe199d55811bb9a14dd9e5c";
+    // Here we are building the URL we need to query the database
+    var queryURL = "https://api.yummly.com/v1/api/recipe/" + recipeID + "?_app_id=" + appID + "&_app_key=" + apiKey;
+    
+    // Here we run our AJAX GET call to Yummly API
+    $.ajax({
+    url: queryURL,
+    method: "GET"
+    })
+    // We store all of the retrieved data inside of an object called "response"
+    .then(function(response) {
+        // console.log(recipeID + "from getAPI function");
+        // console.log(queryURL);
+        // console.log(response);
+        console.log(response)
+        
+    });
+
+})
+
 // click event when a row from the result is clicked
-$("#result-list").on("click", "tr", function(event) {
+$("#result-list").on("click", ".searchResult", function(event) {
     // prevent page from refreshing
     event.preventDefault();
     // empty contents before displaying new content
@@ -165,6 +240,36 @@ $(".carousel-item").on("click", "img", function(event) {
 
 });
 
+// add single recipe to the firebase db
+$(".grid-row").on("click", ".save", function(event){
+    console.log("clicked saved");
+
+    // save data to db
+    // database.ref().push({
+    //     title: title,
+    //     image: image,
+    //     category: category,
+    //     time: time,
+    //     rating: rating,
+    //     servings: servings,
+    //     // ingredients = [],
+    //     link: link
+    // });
+});
+
+$(".grid-row").on("click", ".show", function(event){
+    console.log("show more");
+    // prevent page from refreshing
+    event.preventDefault();
+    // empty contents before displaying new content
+    
+    // $("#result-table").empty();
+    
+    var recipeID = $(this).attr("IDdata");
+    console.log(recipeID + "from click event");
+    getAPI(recipeID);
+})
+
 // pull data from API via GET call to access specific recipe item
 var getAPI = function(recipeID) {
     
@@ -191,7 +296,7 @@ var getAPI = function(recipeID) {
 };
 // creating data to display for specific recipe
 var createRowGetAPI = function(response) {
-    console.log(response.ingredientLines);
+    console.log(response.id);
     //event.preventDefault();
     $("#search-result4").empty();
     $("#search-result1").empty();
@@ -227,6 +332,12 @@ var createRowGetAPI = function(response) {
         href: urllink,
         target: "_blank"
     }).appendTo('#search-result4');
+
+    var saveRecipeButton = $("<button>").text("Save this recipe");
+    saveRecipeButton.attr("id", response.id);
+    saveRecipeButton.attr("type", "button");
+    saveRecipeButton.attr("name", "save");
+    saveRecipeButton.appendTo("#search-result5");
     
     var serving = $("<tr>").text("The meal will serve: " + response.numberOfServings);
     serving.attr("id", "single-recipe-serving");
@@ -242,6 +353,7 @@ var createRowGetAPI = function(response) {
 
     var image = $("<img>").attr("src", response.images[0].hostedLargeUrl);
     image.attr("id", "single-recipe-image");
+    console.log(image[0].src);
     // var lineBreak = $("<tr>").text(" ");
     
 
@@ -425,52 +537,52 @@ function onPlayerStateChange(e){
 //////////////////////////////////////////////////////////////////////////
 /////////////////// Firebase function starts here ////////////////////////
 //////////////////////////////////////////////////////////////////////////
-var config = {
-    apiKey: "AIzaSyBoTmj0O0YVYVuyOeMPPm_1Cr7Evs_bBAY",
-    authDomain: "project1-foodieleaks.firebaseapp.com",
-    databaseURL: "https://project1-foodieleaks.firebaseio.com",
-    projectId: "project1-foodieleaks",
-    storageBucket: "",
-    messagingSenderId: "360937501742"
-    };
-    firebase.initializeApp(config);
+// var config = {
+//     apiKey: "AIzaSyBoTmj0O0YVYVuyOeMPPm_1Cr7Evs_bBAY",
+//     authDomain: "project1-foodieleaks.firebaseapp.com",
+//     databaseURL: "https://project1-foodieleaks.firebaseio.com",
+//     projectId: "project1-foodieleaks",
+//     storageBucket: "",
+//     messagingSenderId: "360937501742"
+//     };
+//     firebase.initializeApp(config);
     
-    // Get a reference to the database service
-    var database = firebase.database();
-    // Initializing our click count at 0
-    var clickCounter = 0;
-    // click event to increment 
-    $("#click-button").on("click", function() {
+//     // Get a reference to the database service
+//     var database = firebase.database();
+//     // Initializing our click count at 0
+//     var clickCounter = 0;
+//     // click event to increment 
+//     $("#click-button").on("click", function() {
     
-        // Add 1 to clickCounter
-        clickCounter++;
+//         // Add 1 to clickCounter
+//         clickCounter++;
     
-        // **** Store Click Data to Firebase in a JSON property called clickCount *****
-        // **** Note how we are using the Firebase .set() method ****
-        // **** .ref() refers to the path you want to save your data to
-        // **** Since we left .ref() blank, it will save to the root directory
-        database.ref().set({
-          clickCount: clickCounter
-        });
+//         // **** Store Click Data to Firebase in a JSON property called clickCount *****
+//         // **** Note how we are using the Firebase .set() method ****
+//         // **** .ref() refers to the path you want to save your data to
+//         // **** Since we left .ref() blank, it will save to the root directory
+//         database.ref().set({
+//           clickCount: clickCounter
+//         });
     
-        // Now! go to https://fir-click-counter-7cdb9.firebaseio.com/ to see the impact to the DB
-    });
+//         // Now! go to https://fir-click-counter-7cdb9.firebaseio.com/ to see the impact to the DB
+//     });
     
-    database.ref().on("value", function(snapshot) {
+//     database.ref().on("value", function(snapshot) {
     
-        // Then we console.log the value of snapshot
-        console.log(snapshot.val());
+//         // Then we console.log the value of snapshot
+//         console.log(snapshot.val());
     
-        // Update the clickCounter variable with data from the database.
-        clickCounter = snapshot.val().clickCount;
+//         // Update the clickCounter variable with data from the database.
+//         clickCounter = snapshot.val().clickCount;
     
-        // Then we change the html associated with the number.
-        $("#click-value").text(snapshot.val().clickCount);
+//         // Then we change the html associated with the number.
+//         $("#click-value").text(snapshot.val().clickCount);
     
-        // If there is an error that Firebase runs into -- it will be stored in the "errorObject"
-        // Again we could have named errorObject anything we wanted.
-      }, function(errorObject) {
+//         // If there is an error that Firebase runs into -- it will be stored in the "errorObject"
+//         // Again we could have named errorObject anything we wanted.
+//       }, function(errorObject) {
     
-        // In case of error this will print the error
-        console.log("The read failed: " + errorObject.code);
-    });
+//         // In case of error this will print the error
+//         console.log("The read failed: " + errorObject.code);
+//     });

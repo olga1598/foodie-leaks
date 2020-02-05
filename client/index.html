@@ -21,7 +21,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Firebase JavaScript Link -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
+
 </head>
 
 <body>
@@ -82,13 +84,14 @@
         
         
         <!-- result table from search -->
-        <div class="container">
-            <div id="result-list">
-                <table class="table">
+        <div class="singlerecipecontainer">
+            <div class="grid-row">
+                <!-- <table class="table">
                     <tbody id="insert-row">
                         
                     </tbody>
-                </table>
+    
+                </table> -->
             </div>
             
             <div class="container" id="single-recipe-result">
@@ -117,14 +120,20 @@
                     
                 </div>
                 <div class="row">
-                    <div class="col-lg-12" id="search-result4">
+                    <div class="col-lg-6 col-md-6 col-sm-12" id="search-result4">
+
+                    </div>                    
+                    <div class="col-lg-4 col-md-4 col-sm-12" id="search-result5">
 
                     </div>
                 </div>
+                <div class="row">
+                </div>
+
                 </div>
             </div> <!-- close div - single recipe result -->
             
-            
+            <div class="container">
             <div class="row"><!-- div for the Carousel -->
                 <div class="col-lg-8 col-sm-12">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -194,6 +203,7 @@
                         </div>
                     </div> extra tips cards -->
                 </div>    
+            </div>
             </div> <!-- closing div for the Carousel -->
             
                 
