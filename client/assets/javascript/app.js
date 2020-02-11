@@ -14,7 +14,7 @@ var config = {
   firebase.initializeApp(config);
 
   // Create a variable to reference the database.
-    var database = firebase.database();
+    var database = firebase.firestore();
 
     var title = "";
     var image = "";
@@ -33,7 +33,7 @@ function displayHome() {
     $("#random-recipes").show();
 
     // contents to hide
-   
+    $(".saved-recipes").hide();
     $("#single-recipe-result").hide();
     $("#random-video").hide();
     $("#nav-button").hide();
@@ -50,22 +50,40 @@ function displayList() {
 
     // contents to hide
     $("#carouselExampleIndicators").hide();
+    $(".saved-recipes").hide();
     $(".olgas-tip-cards").hide();    
     $("#random-video").hide();
     $("#single-recipe-result").hide();
     $("#carouselExampleIndicators").hide();
 };
 
+// function to display saved recipes
+function displaySaved() {
+console.log("Inside saved all list")
+    // contents to show
+    $(".saved-recipes").show();
+$(".grid-row").show();
+    // contents to hide
+    $(".singlerecipecontainer").hide();
+    $("#carouselExampleIndicators").hide();
+    $(".olgas-tip-cards").hide();    
+    $("#random-video").hide();
+    $("#random-recipes").hide();
+
+}
+
 // function to show and hide contents when specific Recipe is displayed
 function displayRecipe() {
     // scroll page to top
     $('html,body').scrollTop(0);
-
+console.log("displayRecipe inside")
     // contents to show
     $("#single-recipe-result").show();
     $("#random-video").show();
 
     // contents to hide
+    $(".saved-recipes").hide();
+
     $("#carouselExampleIndicators").hide();
     $(".olgas-tip-cards").hide();
     $("#recipe-items").hide();
@@ -83,10 +101,47 @@ function displayRecipe() {
     }
 };
 
-$("#nav-button").on("click", function(event) {
+// function to display list of saved recipes
+function renderRecipe(doc){
+    // var li = $("<li>");
+    // console.log(doc);
+    // var title = $("<span>");
+    // var image = $("<img>");
+    // li.attr("data-id", doc.id);
+    // title.text(doc.data().title);
+    // image.attr("src", doc.data().image);
+    // console.log(doc.data().title);
+    // console.log(doc.id);
+    // console.log(doc.data().image);
+    // li.append(title);
+    // li.append(image);
+    // $(".saved-recipes-list").append(li);
+    displaySaved();
+
+        var recdiv = $("<div>");
+        recdiv.addClass("grid-item");
+        var griditem = $("<div>").addClass("grid-item-content");
+        // var img = hdImgURL(response.matches[i].smallImageUrls[0]);
+        var recimage = $("<img>").attr("src", doc.data().image);
+        recimage.attr("class", "card-img-top");
+        recimage.attr("alt", "Card image cap");
+        var cardbody = $("<div>").addClass("card-body");
+        var cardtitle = $("<h1>").addClass("single-title").text(doc.data().title);
+        var showbutton = $("<button>").text("show recipe").attr("IDdata", doc.id).attr("class", "show-recipe");
+        var deletebutton = $("<button>").text("delete recipe").attr("IDdata", doc.id).attr("class", "delete");
+        griditem.append(cardtitle, recimage, showbutton, deletebutton);
+        recdiv.append(griditem);
+        $(".grid-row").append(recdiv);
+    
+}
+
+$("#back-button").on("click", function(event) {
     displayList();
 });
 
+$("#back-to-saved").on("click", function(event){
+    displaySaved();
+})
 
 
 // click event for search box to call searchAPI via searchTerm
@@ -124,7 +179,7 @@ var searchAPI = function(searchTerm) {
 };
 // The createRow function takes data returned by API and appends the table data to the tbody
 var createRow = function(response) {
-    $("#insert-row").empty();
+    $(".grid-row").empty();
     displayList();
     // create a new table row element
     for (var i = 0; i < 10; i++) {
@@ -208,6 +263,107 @@ $("#result-list").on("click", ".searchResult", function(event) {
 
 });
 
+// saved button clicked
+$("#saved").on("click", function(event) {
+    // to clear the content of DIV to prevent double display of DB content
+    // $(".saved-recipes").html("");
+    $(".grid-row").empty();
+
+    console.log("INSIDE SAVED");
+    displaySaved();
+    database.collection("recipeslist").orderBy("title").get().then(function(snapshot){
+        console.log(snapshot.docs);
+        snapshot.docs.forEach(function(doc){
+            console.log(doc.data())
+            renderRecipe(doc);
+        })
+    });
+    //$(".saved-recipes").html("");
+})
+
+// show saved recipe button
+$(".saved-recipes").on("click", ".show-recipe", function(event){
+    $("#single-recipe-result-buttons").hide();
+    var recipeid = $(this).attr("IDdata")
+    console.log(recipeid);
+    var singleRecipe = database.collection("recipeslist").doc(recipeid);
+    singleRecipe.get().then(function(snapshot){
+        console.log(snapshot.data().title);
+        var recipe = snapshot.data();
+        $("#search-result4").empty();
+        $("#search-result1").empty();
+        $("#search-result2").empty();
+        $("#search-result3").empty();
+                $(".singlerecipecontainer").show();
+
+        displayRecipe();
+        // var backButton = $("<button>").text("Back to all saved");
+        // backButton.appendTo("#back-to-saved");
+        // $("#random-recipes").empty();
+        var recipeName = $("<tr>").text(recipe.title);
+    console.log(recipeName);
+        recipeName.attr("id", "single-recipe-name");    
+        var category = $("<tr>").text("Recipe category: " + recipe.category);
+        category.attr("id", "single-recipe-category");
+        var cookTime = $("<tr>").text("Cooking time: " + recipe.time);
+        cookTime.attr("id", "single-recipe-cooktime");
+        var ingredients = recipe.ingredients.map((ingredient, index) => {
+            return $("<tr>").text(index+1 + "." + " " + ingredient);
+        });
+        console.log(ingredients);   
+        var rating = $("<tr>").text("Rating of the recipe: " + recipe.rating);
+        rating.attr("id", "single-recipe-rating");
+        // var urllink = response.source.sourceRecipeUrl;
+        // console.log(urllink);
+        //var source = $("<tr>").text(response.source.sourceRecipeUrl);
+        var thelink = $('<a>',{
+            id: "urllink",
+            text: 'Click here to see the instructions',
+            title: 'instructions for recipe',
+            href: recipe.link,
+            target: "_blank"
+        }).appendTo('#search-result4');
+    
+        // var saveRecipeButton = $("<button>").text("Save this recipe");
+        // saveRecipeButton.attr("id", recipe.id);
+        // saveRecipeButton.attr("type", "button");
+        // saveRecipeButton.attr("name", "save");
+        // saveRecipeButton.appendTo("#search-result5");
+        
+        var serving = $("<tr>").text("The meal will serve: " + recipe.servings);
+        serving.attr("id", "single-recipe-serving");
+        
+        var image = $("<img>").attr("src", recipe.image);
+        image.attr("id", "single-recipe-image");
+        // console.log(image[0].src);
+        // var lineBreak = $("<tr>").text(" ");
+        
+    
+        // $("#search-result").append(image, recipeName, category, cookTime,  rating, serving, ingredients, source);
+        $("#search-result1").append(image);
+        $("#search-result2").append(recipeName, category, cookTime, rating, serving);
+        $("#search-result3").append("Ingredients: ", "<hr />", ingredients);
+    })
+});
+
+// delete the recipe from DB having the id of recipe in DB
+$(".saved-recipes").on("click", ".delete", function(event){
+    var recipeid = $(this).attr("IDdata")
+    console.log("INSIDE DELETE");
+    database.collection("recipeslist").doc(recipeid).delete();
+    $(".grid-row").empty();
+
+    database.collection("recipeslist").get().then(function(snapshot){
+        console.log(snapshot.docs);
+        snapshot.docs.forEach(function(doc){
+            console.log(doc.data())
+            renderRecipe(doc);
+        })
+    })
+
+});
+
+
 // click event for drop-down menu items
 $(".dropdown-menu").on("click", "a", function(event) {
     // prevent page from refreshing
@@ -224,7 +380,7 @@ $("#random-recipes").on("click", "img", function(event) {
     event.preventDefault();
 
     var recipeID = $(this).attr("data");
-    console.log(recipeID);
+    console.log("here " + recipeID);
     getAPI(recipeID);
 
 });
@@ -243,18 +399,70 @@ $(".carousel-item").on("click", "img", function(event) {
 // add single recipe to the firebase db
 $(".grid-row").on("click", ".save", function(event){
     console.log("clicked saved");
+    event.preventDefault();
 
-    // save data to db
-    // database.ref().push({
-    //     title: title,
-    //     image: image,
-    //     category: category,
-    //     time: time,
-    //     rating: rating,
-    //     servings: servings,
-    //     // ingredients = [],
-    //     link: link
-    // });
+    var recipeID = $(this).attr("IDdata");
+    console.log(recipeID + "from save event");
+
+    // API credentials
+    var appID = "c264894e";
+    var apiKey = "f5984f792fe199d55811bb9a14dd9e5c";
+    // Here we are building the URL we need to query the database
+    var queryURL = "https://api.yummly.com/v1/api/recipe/" + recipeID + "?_app_id=" + appID + "&_app_key=" + apiKey;
+    
+    // Here we run our AJAX GET call to Yummly API
+    $.ajax({
+    url: queryURL,
+    method: "GET"
+    })
+    // We store all of the retrieved data inside of an object called "response"
+    .then(function(response) {
+        // console.log(recipeID + "from getAPI function");
+        // console.log(queryURL);
+        // console.log(response);
+        // createRowGetAPI(response);
+        console.log(response);
+    
+
+        var title = response.name;
+        var image = response.images[0].hostedLargeUrl;
+        var category = response.attributes.course;
+        var time = response.totalTime;
+        var rating = response.rating;
+        var servings = response.numberOfServings;
+        var ingredients = response.ingredientLines;
+        var link = response.source.sourceRecipeUrl;
+        console.log(title);
+        console.log(image);
+        console.log(category);
+        console.log(time);
+        console.log(rating);
+        console.log(servings);
+        console.log(ingredients);
+        console.log(link);
+        // save data to db
+        // database.ref().push({
+        //     title: title,
+        //     image: image,
+        //     category: category,
+        //     time: time,
+        //     rating: rating,
+        //     servings: servings,
+        //     // ingredients = [],
+        //     link: link
+        // });
+        database.collection("recipeslist").add({
+            title: title,
+            image: image,
+            category: category,
+            time: time,
+            rating: rating,
+            servings: servings,
+            ingredients: ingredients,
+            link: link
+        });
+
+    });
 });
 
 $(".grid-row").on("click", ".show", function(event){
@@ -267,6 +475,7 @@ $(".grid-row").on("click", ".show", function(event){
     
     var recipeID = $(this).attr("IDdata");
     console.log(recipeID + "from click event");
+    $("#back-to-saved").hide();
     getAPI(recipeID);
 })
 
@@ -298,6 +507,8 @@ var getAPI = function(recipeID) {
 var createRowGetAPI = function(response) {
     console.log(response.id);
     //event.preventDefault();
+    $("#search-result5").empty();
+
     $("#search-result4").empty();
     $("#search-result1").empty();
     $("#search-result2").empty();

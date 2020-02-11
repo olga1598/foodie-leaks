@@ -22,6 +22,7 @@
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Firebase JavaScript Link -->
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
 
 </head>
@@ -39,10 +40,12 @@
                     <h1>Foodie-Leaks</h1>
                     
                     <a class="navbar-brand" href="index.html">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </button> -->
+                    <a class="navbar-brand" id="saved">Saved</a>
+
                 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
@@ -81,7 +84,15 @@
             </div>
         </div><!-- Closing NAV contents -->
         <!-- <br> -->
-        
+
+        <!-- saved recipes -->
+        <div class="saved-recipes">
+            <!-- <ul class="saved-recipes-list">INSIDE SAVED</ul> -->
+            <div class="grid-row">
+                <!-- inside grid saved -->
+            </div>
+
+        </div>
         
         <!-- result table from search -->
         <div class="singlerecipecontainer">
@@ -95,15 +106,20 @@
             </div>
             
             <div class="container" id="single-recipe-result">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <button id="nav-button" class="back-arrow">Back to List</button>
-                    </div>
+                <div class="row" id="single-recipe-result-buttons">
                     <div class="col-sm-6">
                         <button id="add-button" class="add-to-fav">Add to favorite</button>
                     </div>
+                    <div class="col-sm-6">
+                        <button id="back-button" class="back-arrow">Back to List</button>
+                    </div>
                 </div>
                 <div class="recipe-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="back-to-saved">Back to saved</button>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" id="search-result1">
                             
