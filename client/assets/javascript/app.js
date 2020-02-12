@@ -44,7 +44,7 @@ function displayList() {
     // contents to show
     $("#recipe-items").show();
     $("#random-recipes").show();
-
+$(".singlerecipecontainer").show();
     $("#result-list").show();
     $(".grid-row").show();
 
@@ -284,6 +284,7 @@ $("#saved").on("click", function(event) {
 // show saved recipe button
 $(".saved-recipes").on("click", ".show-recipe", function(event){
     $("#single-recipe-result-buttons").hide();
+    $("#search-result5").hide();
     var recipeid = $(this).attr("IDdata")
     console.log(recipeid);
     var singleRecipe = database.collection("recipeslist").doc(recipeid);

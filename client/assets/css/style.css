@@ -10,6 +10,9 @@ body, html{
     background-repeat: repeat;
     background-size: cover;
     background-attachment: fixed;
+    display: flex;
+  flex-direction: column;
+  min-height: 100%;
 } /** made bg image to cover the entire width of the screen **/
 
 .dropdown-item{
@@ -49,7 +52,6 @@ body, html{
 }
 
 .singlerecipecontainer {
-    /* YOUR CODE HERE */
     max-width: 100%;
     margin-top: 0;
     margin-bottom: 0;
@@ -59,10 +61,11 @@ body, html{
 
 
 .grid-row {
-    /* YOUR CODE HERE */
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
     /* padding: 0px;
     flex-direction: row;
     flex-wrap: wrap; */
@@ -123,6 +126,14 @@ h1 {
 
 #saved:hover {
     color: rgb(150, 146, 146);
+}
+
+.saved-recipes h1{
+    font-family: 'Courgette', cursive;
+    margin: 10px;
+    font-size: 30px;
+
+    color: rgb(32, 32, 32);
 }
 
 #carouselExampleIndicators {
@@ -395,23 +406,31 @@ margin-top: 30px;
 
 @media(max-width: 1200px) {
     .grid-item {
-        /* YOUR CODE HERE */
-        flex-basis: 33.33%;
+        
+        flex-basis: 31.33%;
     }
 }
 
 @media(max-width: 992px) {
     .grid-item {
-        /* YOUR CODE HERE */
-        flex-basis: 33.33%;
-
+        flex-basis: 31.33%;
+    }
+    #home-button{
+        display: none;
     }
 }
+
+@media(max-width: 815px) {
+    .grid-item {
+        flex-basis: 29.33%;
+    }
+}
+
 
 @media(max-width: 768px) {
     .grid-item {
         /* YOUR CODE HERE */
-        flex-basis: 50%;
+        flex-basis: 47%;
 
     }
 }
