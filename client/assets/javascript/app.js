@@ -171,7 +171,8 @@ var searchAPI = function(searchTerm) {
     var queryURL = "https://api.yummly.com/v1/api/recipes?_app_id=" + appID + "&_app_key=" + apiKey + "&q=" + searchTerm;
     $.ajax({
         url: queryURL,
-        method: "GET"
+        method: "GET",
+        // headers: Access-Control-Allow-Origin
     }).then(function(response) {
         console.log(queryURL);
         createRow(response);
@@ -236,7 +237,8 @@ $("#result-list").on("click", ".save-button", function(event){
     // Here we run our AJAX GET call to Yummly API
     $.ajax({
     url: queryURL,
-    method: "GET"
+    method: "GET",
+    // headers: Access-Control-Allow-Origin
     })
     // We store all of the retrieved data inside of an object called "response"
     .then(function(response) {
@@ -620,8 +622,9 @@ window.onload = function() {
     // Here we run our AJAX call to the Yummly API
     $.ajax({
     url: queryURL,
-    method: "GET"
-    })
+    method: "GET",
+    headers: Access-Control-Allow-Origin
+})
     // We store all of the retrieved data inside of an object called "response"
     .then(function(response) {
         console.log(response);
@@ -676,10 +679,12 @@ window.onload = function() {
 
     $.ajax({
         url: queryURL2,
-        method: "GET"
+        method: "GET",
+        headers: Access-Control-Allow-Origin
     })
     // We store all of the retrieved data inside of an object called "response"
     .then(function(response) {
+        // response.header("Access-Control-Allow-Origin", "*");
 
         for (var i = 0; i < 10; i++){
             var img = response.matches[i].smallImageUrls;
